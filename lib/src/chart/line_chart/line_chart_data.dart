@@ -153,10 +153,10 @@ class LineChartData extends AxisChartData with EquatableMixin {
   BaseChartData lerp(BaseChartData a, BaseChartData b, double t) {
     if (a is LineChartData && b is LineChartData && t != null) {
       return LineChartData(
-        minX: lerpDouble(a.minX, b.minX, t),
-        maxX: lerpDouble(a.maxX, b.maxX, t),
-        minY: lerpDouble(a.minY, b.minY, t),
-        maxY: lerpDouble(a.maxY, b.maxY, t),
+        minX: lerpNonNullDouble(a.minX, b.minX, t),
+        maxX: lerpNonNullDouble(a.maxX, b.maxX, t),
+        minY: lerpNonNullDouble(a.minY, b.minY, t),
+        maxY: lerpNonNullDouble(a.maxY, b.maxY, t),
         backgroundColor: Color.lerp(a.backgroundColor, b.backgroundColor, t),
         borderData: FlBorderData.lerp(a.borderData, b.borderData, t),
         clipData: b.clipData,
@@ -217,7 +217,7 @@ class LineChartData extends AxisChartData with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         lineBarsData,
         betweenBarsData,
         titlesData,
@@ -394,7 +394,7 @@ class LineChartBarData with EquatableMixin {
   static LineChartBarData lerp(LineChartBarData a, LineChartBarData b, double t) {
     return LineChartBarData(
       show: b.show,
-      barWidth: lerpDouble(a.barWidth, b.barWidth, t),
+      barWidth: lerpNonNullDouble(a.barWidth, b.barWidth, t),
       belowBarData: BarAreaData.lerp(a.belowBarData, b.belowBarData, t),
       aboveBarData: BarAreaData.lerp(a.aboveBarData, b.aboveBarData, t),
       curveSmoothness: b.curveSmoothness,
@@ -402,7 +402,7 @@ class LineChartBarData with EquatableMixin {
       isStrokeCapRound: b.isStrokeCapRound,
       preventCurveOverShooting: b.preventCurveOverShooting,
       preventCurveOvershootingThreshold:
-          lerpDouble(a.preventCurveOvershootingThreshold, b.preventCurveOvershootingThreshold, t),
+          lerpNonNullDouble(a.preventCurveOvershootingThreshold, b.preventCurveOvershootingThreshold, t),
       dotData: FlDotData.lerp(a.dotData, b.dotData, t),
       dashArray: lerpIntList(a.dashArray, b.dashArray, t),
       colors: lerpColorList(a.colors, b.colors, t),
@@ -468,7 +468,7 @@ class LineChartBarData with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         spots,
         show,
         colors,
@@ -512,13 +512,13 @@ class LineChartStepData with EquatableMixin {
   /// Lerps a [LineChartStepData] based on [t] value, check [Tween.lerp].
   static LineChartStepData lerp(LineChartStepData a, LineChartStepData b, double t) {
     return LineChartStepData(
-      stepDirection: lerpDouble(a.stepDirection, b.stepDirection, t),
+      stepDirection: lerpNonNullDouble(a.stepDirection, b.stepDirection, t),
     );
   }
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [stepDirection];
+  List<Object?> get props => [stepDirection];
 }
 
 /// Holds data for filling an area (above or below) of the line with a color or gradient.
@@ -594,14 +594,14 @@ class BarAreaData with EquatableMixin {
       spotsLine: BarAreaSpotsLine.lerp(a.spotsLine, b.spotsLine, t),
       colors: lerpColorList(a.colors, b.colors, t),
       gradientColorStops: lerpDoubleList(a.gradientColorStops, b.gradientColorStops, t),
-      cutOffY: lerpDouble(a.cutOffY, b.cutOffY, t),
+      cutOffY: lerpNonNullDouble(a.cutOffY, b.cutOffY, t),
       applyCutOffY: b.applyCutOffY,
     );
   }
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         show,
         colors,
         gradientFrom,
@@ -667,7 +667,7 @@ class BetweenBarsData with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         fromIndex,
         toIndex,
         colors,
@@ -716,7 +716,7 @@ class BarAreaSpotsLine with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         show,
         flLineStyle,
         checkToShowSpotLine,
@@ -820,7 +820,7 @@ class FlDotData with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         show,
         checkToShowDot,
         getDotPainter,
@@ -894,7 +894,7 @@ class FlDotCirclePainter extends FlDotPainter {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         color,
         radius,
         strokeColor,
@@ -964,7 +964,7 @@ class FlDotSquarePainter extends FlDotPainter {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         color,
         size,
         strokeColor,
@@ -1024,10 +1024,10 @@ class HorizontalLine extends FlLine with EquatableMixin {
   /// Lerps a [HorizontalLine] based on [t] value, check [Tween.lerp].
   static HorizontalLine lerp(HorizontalLine a, HorizontalLine b, double t) {
     return HorizontalLine(
-      y: lerpDouble(a.y, b.y, t),
+      y: lerpNonNullDouble(a.y, b.y, t),
       label: HorizontalLineLabel.lerp(a.label, b.label, t),
       color: Color.lerp(a.color, b.color, t),
-      strokeWidth: lerpDouble(a.strokeWidth, b.strokeWidth, t),
+      strokeWidth: lerpNonNullDouble(a.strokeWidth, b.strokeWidth, t),
       dashArray: lerpIntList(a.dashArray, b.dashArray, t),
       image: b.image,
       sizedPicture: b.sizedPicture,
@@ -1036,7 +1036,7 @@ class HorizontalLine extends FlLine with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         y,
         label,
         color,
@@ -1088,10 +1088,10 @@ class VerticalLine extends FlLine with EquatableMixin {
   /// Lerps a [VerticalLine] based on [t] value, check [Tween.lerp].
   static VerticalLine lerp(VerticalLine a, VerticalLine b, double t) {
     return VerticalLine(
-      x: lerpDouble(a.x, b.x, t),
+      x: lerpNonNullDouble(a.x, b.x, t),
       label: VerticalLineLabel.lerp(a.label, b.label, t),
       color: Color.lerp(a.color, b.color, t),
-      strokeWidth: lerpDouble(a.strokeWidth, b.strokeWidth, t),
+      strokeWidth: lerpNonNullDouble(a.strokeWidth, b.strokeWidth, t),
       dashArray: lerpIntList(a.dashArray, b.dashArray, t),
       image: b.image,
       sizedPicture: b.sizedPicture,
@@ -1100,7 +1100,7 @@ class VerticalLine extends FlLine with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         x,
         label,
         color,
@@ -1133,7 +1133,7 @@ abstract class FlLineLabel with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         show,
         padding,
         style,
@@ -1187,7 +1187,7 @@ class HorizontalLineLabel extends FlLineLabel with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         labelResolver,
         show,
         padding,
@@ -1242,7 +1242,7 @@ class VerticalLineLabel extends FlLineLabel with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         labelResolver,
         show,
         padding,
@@ -1285,7 +1285,7 @@ class SizedPicture with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         picture,
         width,
         height,
@@ -1325,7 +1325,7 @@ class ExtraLinesData with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         horizontalLines,
         verticalLines,
         extraLinesOnTop,
@@ -1412,7 +1412,7 @@ class LineTouchData extends FlTouchData with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         touchTooltipData,
         getTouchedSpotIndicator,
         touchSpotThreshold,
@@ -1525,7 +1525,7 @@ class LineTouchTooltipData with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         tooltipBgColor,
         tooltipRoundedRadius,
         tooltipPadding,
@@ -1590,7 +1590,7 @@ class LineBarSpot extends FlSpot with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         bar,
         barIndex,
         spotIndex,
@@ -1612,7 +1612,7 @@ class LineTooltipItem with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         text,
         textStyle,
       ];
@@ -1637,7 +1637,7 @@ class TouchedSpotIndicatorData with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         indicatorBelowLine,
         touchedSpotDotData,
       ];
@@ -1660,7 +1660,7 @@ class ShowingTooltipIndicators with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [lineIndex, showingSpots];
+  List<Object?> get props => [lineIndex, showingSpots];
 }
 
 /// Holds information about touch response in the [LineChart].
@@ -1682,7 +1682,7 @@ class LineTouchResponse extends BaseTouchResponse with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         lineBarSpots,
         touchInput,
       ];

@@ -94,10 +94,10 @@ class PieChartData extends BaseChartData with EquatableMixin {
       return PieChartData(
         borderData: FlBorderData.lerp(a.borderData, b.borderData, t),
         centerSpaceColor: Color.lerp(a.centerSpaceColor, b.centerSpaceColor, t),
-        centerSpaceRadius: lerpDouble(a.centerSpaceRadius, b.centerSpaceRadius, t),
+        centerSpaceRadius: lerpNonNullDouble(a.centerSpaceRadius, b.centerSpaceRadius, t),
         pieTouchData: b.pieTouchData,
-        sectionsSpace: lerpDouble(a.sectionsSpace, b.sectionsSpace, t),
-        startDegreeOffset: lerpDouble(a.startDegreeOffset, b.startDegreeOffset, t),
+        sectionsSpace: lerpNonNullDouble(a.sectionsSpace, b.sectionsSpace, t),
+        startDegreeOffset: lerpNonNullDouble(a.startDegreeOffset, b.startDegreeOffset, t),
         sections: lerpPieChartSectionDataList(a.sections, b.sections, t),
       );
     } else {
@@ -107,7 +107,7 @@ class PieChartData extends BaseChartData with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         sections,
         centerSpaceRadius,
         centerSpaceColor,
@@ -232,23 +232,23 @@ class PieChartSectionData with EquatableMixin {
   /// Lerps a [PieChartSectionData] based on [t] value, check [Tween.lerp].
   static PieChartSectionData lerp(PieChartSectionData a, PieChartSectionData b, double t) {
     return PieChartSectionData(
-      value: lerpDouble(a.value, b.value, t),
+      value: lerpNonNullDouble(a.value, b.value, t),
       color: Color.lerp(a.color, b.color, t),
-      radius: lerpDouble(a.radius, b.radius, t),
+      radius: lerpNonNullDouble(a.radius, b.radius, t),
       showTitle: b.showTitle,
       titleStyle: TextStyle.lerp(a.titleStyle, b.titleStyle, t),
       title: b.title,
       badgeWidget: b.badgeWidget,
       titlePositionPercentageOffset:
-          lerpDouble(a.titlePositionPercentageOffset, b.titlePositionPercentageOffset, t),
+          lerpNonNullDouble(a.titlePositionPercentageOffset, b.titlePositionPercentageOffset, t),
       badgePositionPercentageOffset:
-          lerpDouble(a.badgePositionPercentageOffset, b.badgePositionPercentageOffset, t),
+          lerpNonNullDouble(a.badgePositionPercentageOffset, b.badgePositionPercentageOffset, t),
     );
   }
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         value,
         color,
         radius,
@@ -283,7 +283,7 @@ class PieTouchData extends FlTouchData with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         enabled,
       ];
 }
@@ -325,7 +325,7 @@ class PieTouchResponse extends BaseTouchResponse with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         touchedSection,
         touchedSectionIndex,
         touchAngle,

@@ -25,9 +25,9 @@ class BarChart extends ImplicitlyAnimatedWidget {
 class _BarChartState extends AnimatedWidgetBaseState<BarChart> {
   /// we handle under the hood animations (implicit animations) via this tween,
   /// it lerps between the old [BarChartData] to the new one.
-  BarChartDataTween _barChartDataTween;
+  late BarChartDataTween _barChartDataTween;
 
-  TouchHandler _touchHandler;
+  TouchHandler<BarTouchResponse>? _touchHandler;
 
   final GlobalKey _chartKey = GlobalKey();
 
@@ -41,12 +41,12 @@ class _BarChartState extends AnimatedWidgetBaseState<BarChart> {
     return MouseRegion(
       onEnter: (e) {
         final chartSize = _getChartSize();
-        if (chartSize == null) {
+        if (chartSize == null || _touchHandler == null) {
           return;
         }
 
         final BarTouchResponse response =
-            _touchHandler?.handleTouch(FlPanStart(e.localPosition), chartSize);
+            _touchHandler!.handleTouch(FlPanStart(e.localPosition), chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -207,9 +207,12 @@ class _BarChartState extends AnimatedWidgetBaseState<BarChart> {
     );
   }
 
-  Size _getChartSize() {
-    final RenderBox containerRenderBox = _chartKey.currentContext?.findRenderObject();
-    if (containerRenderBox != null && containerRenderBox.hasSize) {
+  Size? _getChartSize() {
+    final containerRenderBox = _chartKey.currentContext?.findRenderObject();
+    if (containerRenderBox == null || containerRenderBox is! RenderBox) {
+      return null;
+    }
+    if (containerRenderBox.hasSize) {
       return containerRenderBox.size;
     }
     return null;

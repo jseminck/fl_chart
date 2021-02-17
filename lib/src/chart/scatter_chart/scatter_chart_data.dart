@@ -133,10 +133,10 @@ class ScatterChartData extends AxisChartData with EquatableMixin {
         gridData: FlGridData.lerp(a.gridData, b.gridData, t),
         borderData: FlBorderData.lerp(a.borderData, b.borderData, t),
         axisTitleData: FlAxisTitleData.lerp(a.axisTitleData, b.axisTitleData, t),
-        minX: lerpDouble(a.minX, b.minX, t),
-        maxX: lerpDouble(a.maxX, b.maxX, t),
-        minY: lerpDouble(a.minY, b.minY, t),
-        maxY: lerpDouble(a.maxY, b.maxY, t),
+        minX: lerpNonNullDouble(a.minX, b.minX, t),
+        maxX: lerpNonNullDouble(a.maxX, b.maxX, t),
+        minY: lerpNonNullDouble(a.minY, b.minY, t),
+        maxY: lerpNonNullDouble(a.maxY, b.maxY, t),
         clipData: b.clipData,
         backgroundColor: Color.lerp(a.backgroundColor, b.backgroundColor, t),
       );
@@ -181,7 +181,7 @@ class ScatterChartData extends AxisChartData with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         scatterSpots,
         titlesData,
         scatterTouchData,
@@ -245,17 +245,17 @@ class ScatterSpot extends FlSpot with EquatableMixin {
   /// Lerps a [ScatterSpot] based on [t] value, check [Tween.lerp].
   static ScatterSpot lerp(ScatterSpot a, ScatterSpot b, double t) {
     return ScatterSpot(
-      lerpDouble(a.x, b.x, t),
-      lerpDouble(a.y, b.y, t),
+      lerpNonNullDouble(a.x, b.x, t),
+      lerpNonNullDouble(a.y, b.y, t),
       show: b.show,
-      radius: lerpDouble(a.radius, b.radius, t),
+      radius: lerpNonNullDouble(a.radius, b.radius, t),
       color: Color.lerp(a.color, b.color, t),
     );
   }
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         x,
         y,
         show,
@@ -325,7 +325,7 @@ class ScatterTouchData extends FlTouchData with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         enabled,
         touchTooltipData,
         touchSpotThreshold,
@@ -358,7 +358,7 @@ class ScatterTouchResponse extends BaseTouchResponse with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         touchInput,
         touchedSpot,
         touchedSpotIndex,
@@ -419,7 +419,7 @@ class ScatterTouchTooltipData with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         tooltipBgColor,
         tooltipRoundedRadius,
         tooltipPadding,
@@ -475,7 +475,7 @@ class ScatterTooltipItem with EquatableMixin {
 
   /// Used for equality check, see [EquatableMixin].
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         text,
         textStyle,
         bottomMargin,
